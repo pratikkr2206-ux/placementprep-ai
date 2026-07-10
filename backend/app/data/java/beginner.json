@@ -1,0 +1,16 @@
+[
+    {
+        "question": "What is Java?",
+        "answer": "Java is a high-level, object-oriented programming language developed by Sun Microsystems.",
+        "category": "Java Basics",
+        "role": "Java Developer",
+        "difficulty": "Beginner"
+    },
+    {
+        "question": "What are JVM, JRE and JDK?",
+        "answer": "JVM executes Java bytecode, JRE provides runtime environment and JDK contains development tools.",
+        "category": "Java Basics",
+        "role": "Java Developer",
+        "difficulty": "Beginner"
+    }
+]
