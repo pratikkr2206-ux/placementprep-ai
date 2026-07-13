@@ -45,27 +45,25 @@ export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    async function loadUser() {
-  try {
-    const response = await api.get("/auth/me");
-    setUser(response.data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-    async function loadDashboard() {
-      try {
-        const data = await getDashboardStats();
-        setStats(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    }
+  async function loadDashboard() {
+    try {
+      const [statsData, userResponse] = await Promise.all([
+        getDashboardStats(),
+        api.get("/auth/me"),
+      ]);
 
-    loadDashboard();
-  }, []);
+      setStats(statsData);
+      console.log("AUTH ME RESPONSE:", userResponse.data);
+      setUser(userResponse.data);
+    } catch (error) {
+      console.error("Dashboard error:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  loadDashboard();
+}, []);
 
   return (
     <DashboardLayout>
