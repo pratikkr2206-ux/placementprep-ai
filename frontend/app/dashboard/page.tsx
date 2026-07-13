@@ -7,7 +7,7 @@ import PerformanceChart from "@/components/dashboard/PerformanceChart";
 import StatCard from "@/components/ui/StatCard";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
-
+import api from "@/services/api";
 import { getDashboardStats } from "@/services/dashboard";
 
 interface CategoryScore {
@@ -25,6 +25,11 @@ interface DashboardStats {
 
   category_scores: CategoryScore[];
 }
+interface User {
+  id: number;
+  full_name: string;
+  email: string;
+}
 
 export default function DashboardPage() {
 
@@ -37,8 +42,17 @@ export default function DashboardPage() {
   category_scores: [],
 });
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
+    async function loadUser() {
+  try {
+    const response = await api.get("/auth/me");
+    setUser(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+}
     async function loadDashboard() {
       try {
         const data = await getDashboardStats();
@@ -63,9 +77,8 @@ export default function DashboardPage() {
     <div>
 
       <h1 className="text-4xl font-bold">
-        Welcome Back, Pratik 👋
-      </h1>
-
+  Welcome Back, {user?.full_name ?? "User"} 👋
+</h1>
       <p className="mt-3 text-lg text-blue-100">
         Continue your preparation with AI-powered mock interviews.
       </p>
