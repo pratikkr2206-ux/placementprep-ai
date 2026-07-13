@@ -14,21 +14,16 @@ export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    async function fetchUser() {
+    async function loadUser() {
       try {
-        const token = localStorage.getItem("access_token");
-
-        if (!token) return;
-
-        const response = await api.get("/auth/me");
-
-        setUser(response.data);
+        const res = await api.get("/auth/me");
+        setUser(res.data);
       } catch (err) {
-        console.error("Failed to load user", err);
+        console.error(err);
       }
     }
 
-    fetchUser();
+    loadUser();
   }, []);
 
   return (
@@ -50,12 +45,12 @@ export default function Navbar() {
 
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white font-bold">
-            {user?.full_name?.charAt(0).toUpperCase() || "U"}
+            {user?.full_name?.charAt(0).toUpperCase()}
           </div>
 
           <div>
             <h3 className="font-semibold">
-              {user?.full_name || "User"}
+              {user?.full_name}
             </h3>
 
             <p className="text-sm text-slate-500">
