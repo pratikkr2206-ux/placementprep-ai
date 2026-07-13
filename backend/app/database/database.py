@@ -6,6 +6,9 @@ engine = create_engine(
     settings.DATABASE_URL,
     pool_pre_ping=True,
     pool_recycle=300,
+    connect_args={
+        "ssl": {},
+    },
 )
 
 SessionLocal = sessionmaker(
