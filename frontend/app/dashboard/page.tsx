@@ -77,8 +77,8 @@ export default function DashboardPage() {
     <div>
 
       <h1 className="text-4xl font-bold">
-  Welcome Back, {user?.full_name ?? "User"} 👋
-</h1>
+        Welcome Back, {user?.full_name ?? "User"} 👋
+      </h1>
       <p className="mt-3 text-lg text-blue-100">
         Continue your preparation with AI-powered mock interviews.
       </p>
